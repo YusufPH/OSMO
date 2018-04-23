@@ -1,0 +1,36 @@
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <br>
+            <br>
+            <li class="sidebar-brand">
+                <a class="text-white">
+                    Main Menu
+                </a>
+            </li>
+            <li>
+                <a href="/">Home</a>
+            </li>
+            {{#if isAuthenticated}}
+            <li>
+                <a href="/dashboard">Dashboard</a>
+            </li>
+            <li>
+                <a href="/meeting">Create Meeting</a>
+            </li>
+            <li>
+                <a href="/logout">Logout</a>
+            </li>
+            {{else}}
+            <li>
+                <a href="/register">Register</a>
+            </li>
+            <li>
+                <a href="/login">Login</a>
+            </li>
+            {{/if}}
+        </ul>
+    </div>
+

@@ -1,0 +1,58 @@
+to run:
+
+    terminal 1: nodemon
+    terminal 2: webpack
+    localhost: 3001
+
+    or
+
+    Run
+    localhost:3000
+
+to do list:
+
+    1) register (Complete)
+        a) validation //
+        b) hashing passwords //
+
+    2) login (Complete)
+        a) create sessions/cookies //
+
+    3) logout (Complete)
+        a) delete sessions/cookies //
+
+    4) Homepage
+        a) the task //
+        b) the problem //
+        c) the solution //
+        d) how to
+
+    5) Dashboard
+        a) user info
+        b) meeting stats
+        c) upcoming meetings **
+        d) invites **
+
+    7) join meeting
+        a) enter meeting id - either enter url or enter meeting id into dahsboard input field
+        b) if private meeting insert password
+        c) insert free period(s)
+        d) choose preferred start time
+        e) submit available times and store in db
+
+    8) see meeting participants
+        a) enter meeting id - either enter url or enter meeting id into dahsboard input field
+        b) if private meeting insert password
+        c) shows all entries in graph form
+
+
+var hrefVal;
+            var hrefHTML;
+            options.forEach(function (option) {
+                hrefVal = "/meeting/" + option.extension;
+                hrefHTML = `<a href = ></a>`;
+                row = table.insertRow(-1);
+                row.insertCell(0).innerHTML = option.id;
+                row.insertCell(1).innerHTML = option.title;
+                row.insertCell(2).innerHTML = "<a>" + option.extension + "</a>";
+            });

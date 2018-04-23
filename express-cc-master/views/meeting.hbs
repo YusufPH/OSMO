@@ -1,0 +1,295 @@
+{{> header }}
+
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#page-top">Meetings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#detail">Meeting Info</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#dates">Meeting Dates</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#submit">Submission</a>
+            </li>
+        </ul>
+    </div>
+
+    </nav>
+
+    {{> toggle }}
+
+    <div id="page-content-wrapper">
+
+        <header class="bg-primary text-white">
+            <div class="container">
+                <h2>{{title}}</h2>
+            </div>
+        </header>
+
+        <section id="detail">
+            <div class="container">
+                {{#if errors}}
+                    {{#each errors}}
+                        <div class="alert alert-danger">
+                            {{this.msg}}
+                        </div>
+                    {{/each}}
+                {{/if}}
+                <h3 style="text-align: center">Meeting Info</h3>
+
+                <div class="form-group">
+                    <label for="meeting_title">Meeting Title</label>
+                    <input type="text" class="form-control" name="meeting_title" id="meeting_title" placeholder="Title" on>
+                </div>
+
+                <div class="form-group">
+                    <label for="meeting_description">Description </label>
+                    <textarea class="form-control" name="meeting_description" id="meeting_description" rows="2" placeholder="Description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="meeting_location">Location</label>
+                    <input type="text" class="form-control" name="meeting_location" id="meeting_location" placeholder="Location">
+                </div>
+
+                <div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" id="privacy" onclick="showHidePass()"> Private</label>
+                    </div>
+                    <div id="meetingPasswordDiv" style="display: none;">
+                        <label for="meeting_password">Meeting Password</label>
+                        <input type="text" class="form-control" id="meeting_password" name="meeting_password" placeholder="Password">
+                    </div>
+                </div>
+                <br>
+                <div class="slidecontainer" style="width: 100%">
+                    <label for="length">Duration
+                        <p>
+                            <input style="width: 100%" type="range" id="length" class="durationSlider" min="0.25" max="5" value="0" step="0.25" onClick="document.getElementById('length_span').innerHTML = document.getElementById('length').value"><br>
+                        </p>
+                    </label>
+                    Length: <span id="length_span"></span> hour(s)
+                </div>
+            </div>
+        </section>
+
+        <section id="dates">
+            <div class="container">
+                <h3 style="text-align: center">Meeting Dates</h3>
+
+                <div class="row" id="new_pos">
+                    <div id="meeting_option1" class="col-lg-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <h5 class="card-header text-center text-white bg-dark">Meeting Date 1</h5>
+                            <div class="card-body">
+                                <div class="input-group date" data-provide="datepicker">
+                                    <label for="date1">Meeting Date
+                                        <input type="date" id="date1">
+                                    </label>
+                                </div>
+                                <br>
+                                <div class="input-group clockpicker">
+                                    <label for="start_time1">Lowerbound Time
+                                        <input type="time"  value="09:00" name="start_time1" id="start_time1" required></label><span class="validity"></span>
+                                </div>
+                                <br>
+                                <div class="input-group clockpicker">
+                                    <label for="end_time1">Upperbound Time
+                                        <input type="time" value="17:00" name="end_time1" id="end_time1" required></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div id="create" class="mx-auto">
+                        <button style="margin:0 auto; display:block;" type="button" onClick="createDiv()" class="btn btn-success">Add</button> <br>
+                        <button id="remove_option" type="button" onclick="removeDiv()" class="btn btn-secondary" style="display: none; margin:0 auto">Remove</button><br>
+                    </div>
+                </div>
+                <div id = "submit" class="container">
+                    <button style="margin:0 auto; display:block; display: inline-block" type="button" onClick="submit()" class="btn btn-primary">Submit</button>
+                </div>
+
+            </div>
+
+        </section>
+
+        </div>
+    </div>
+</div>
+</body>
+    {{> footer }}
+
+<script>
+
+    var dateCounter = 1;
+
+
+    function showHidePass() {
+        if (document.getElementById('privacy').checked)
+        {
+            document.getElementById('meetingPasswordDiv').style.display = 'block';
+        } else {
+            document.getElementById('meetingPasswordDiv').style.display = 'none';
+        }
+
+    }
+    function createDiv() {
+        dateCounter++;
+        var x = document.getElementById("remove_option");
+        x.style.display= "block";
+        var meetingOptionHTML = `
+                <div class="card h-100">
+                            <h5 class="card-header text-center text-white bg-dark">Meeting Date ${dateCounter}</h5>
+                            <div class="card-body">
+                                <div class="input-group date" data-provide="datepicker">
+                                    <label for="date${dateCounter}">Meeting Date
+                                        <input type="date" id="date${dateCounter}">
+                                    </label>
+                                </div>
+                                <br>
+                                <div class="input-group clockpicker">
+                                    <label for="start_time${dateCounter}">Lowerbound Time
+                                        <input type="time" value="09:00" name="start_time" id="start_time${dateCounter}">
+                                    </label>
+                                </div>
+                                <br>
+                                <div class="input-group clockpicker">
+                                    <label for="end_time${dateCounter}">Upperbound Time
+                                        <input type="time" value="17:00" name="end_time" id="end_time${dateCounter}">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>`;
+        var div = document.createElement('div');
+        var id = "meeting_option" + dateCounter;
+        div.id = id;
+        div.className = "col-lg-4 col-sm-6 portfolio-item";
+        div.innerHTML = meetingOptionHTML;
+        document.getElementById("new_pos").appendChild(div);
+        /*var newPos = document.getElementById(id);
+        newPos.scrollIntoView();*/
+    }
+
+    function removeDiv() {
+        var x = document.getElementById("remove_option");
+        var elem = document.getElementById('meeting_option' + dateCounter);
+        elem.parentNode.removeChild(elem);
+        dateCounter--;
+        if(dateCounter == 1){
+            x.style.display= "none";
+        }
+    }
+
+    function submit() {
+        var submittable = true;
+        console.log("Submitting");
+        var submittable = true;
+        if (!document.getElementById('meeting_title').value) {
+            document.getElementById('meeting_title').style.border = "solid #FF0000";
+            submittable = false;
+        }
+        if (!document.getElementById('meeting_description').value) {
+            document.getElementById('meeting_description').style.border = "solid #FF0000";
+            submittable = false;
+        }
+        if (!document.getElementById('meeting_location').value) {
+            document.getElementById('meeting_location').style.border = "solid #FF0000";
+            submittable = false;
+        }
+        if ( document.getElementById('privacy').checked &&!document.getElementById('meeting_password').value) {
+            document.getElementById('meeting_password').style.border = "solid #FF0000";
+            submittable = false;
+        }
+        if (!document.getElementById('privacy').checked)
+        {
+            document.getElementById('meeting_password').value = "";
+        }
+        if (!submittable)
+        {
+            console.log("Error: not submittable");
+            return;
+        }
+
+        var options = [];
+        var temp;
+        var durat;
+        for (var no = 1; no <= dateCounter; no++)
+        {
+            durat = document.getElementById("length").value;
+            temp = document.getElementById('start_time'+no).value;
+            temp = moment(temp, ["HH:mm", moment.ISO_8601]);
+            temp = temp.add(durat, 'hours').format("HH:mm");
+
+
+            if (!document.getElementById('date'+no).value || !(Date.now() < Date.parse(document.getElementById('date'+no).value))) {
+                document.getElementById('date'+no).style.border = "solid #FF0000";
+                submittable = false;
+            } else {
+                document.getElementById('date'+no).style.border = "none";
+            }
+            if (!document.getElementById('start_time'+no).value || (document.getElementById('end_time'+no).value < document.getElementById('start_time'+no).value)) {
+                document.getElementById('start_time'+no).style.border = "solid #FF0000";
+                submittable = false;
+            } else {
+                document.getElementById('start_time'+no).style.border = "none";
+            }
+            if (!document.getElementById('end_time'+no).value || (document.getElementById('end_time'+no).value < document.getElementById('start_time'+no).value) || (document.getElementById('end_time'+no).value < temp)) {
+                document.getElementById('end_time'+no).style.border = "solid #FF0000";
+                submittable = false;
+            } else {
+                document.getElementById('end_time'+no).style.border = "none";
+            }
+            if (!submittable)
+            {
+                console.log("Error: not submittable 2");
+                return;
+            } else {
+                options.push({"date": document.getElementById('date'+no).value, "start_time": document.getElementById('start_time'+no).value, "end_time": document.getElementById('end_time'+no).value, "length": document.getElementById('length').value});
+            }
+        }
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "/createMeeting", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        var params = {
+            "title": document.getElementById('meeting_title').value,
+            "description": document.getElementById('meeting_description').value,
+            "location": document.getElementById('meeting_location').value,
+            "locked": document.getElementById('privacy').checked,
+            "password": document.getElementById('meeting_password').value,
+            "length": document.getElementById('length').value,
+            "options": options
+        };
+        xhttp.send(JSON.stringify(params));
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.responseText) {
+                if (this.readyState == 4 && this.responseText) {
+                    if (this.status === 200)
+                    {
+                        alert("Your url is " + window.location.href.split("/")[window.location.href.split("/").length - 1] + "/" + this.responseText);
+                        window.location.replace("meeting/" + this.responseText);
+                    } else
+                    {
+                        alert("Error: " + this.responseText)
+                    }
+                }
+            }
+        };
+    }
+
+
+    var slider = document.getElementById("length");
+    var output = document.getElementById("length_span");
+    output.innerHTML = slider.value;
+    slider.oninput = function() {
+        output.innerHTML = this.value;
+    }
+
+
+</script>
+
+{{> footer-end }}
